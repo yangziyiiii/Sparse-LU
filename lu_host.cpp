@@ -38,11 +38,11 @@ int main(int argc, char **argv){
     int iteration_num = 1;
 
      if(argc == 4) {
-        ITERATION_NUM = atoi(argv[3]);
+        iteration_num = atoi(argv[3]);
     }
     
     else if(argc != 3) {
-        cout << "Message: " << argv[0] << " [Sparse Matrix Path] [N] [ITERATION_NUM] " << std::endl;
+        cout << "Message: " << argv[0] << " [Sparse Matrix Path] [N] [iteration_num] " << std::endl;
         return EXIT_FAILURE;
     }
 
@@ -64,7 +64,7 @@ int main(int argc, char **argv){
 
     cout << "\n Matrix Size: \n";
     cout << "Sparse matrix A: #Rows = " << M << ", #Cols = " << K << ", #nnzR = " << nnzR << "\n";
-    cout << "\n Create Data Struct: \n"
+    cout << "\n Create Data Struct: \n";
 
     vector<INDEX_TYPE> RowPtr_CSR(M+1, 0); //no definition
     vector<INDEX_TYPE> ColIdx_CSR(nnzR, 0);
@@ -227,7 +227,7 @@ int main(int argc, char **argv){
 
     cout << " FPGA done \n";
 
-    FPGA_time *= (1e-9 / ITERATION_NUM);
+    FPGA_time *= (1e-9 / iteration_num);
     printf("FPGA time is %f ms\n", FPGA_time * 1000);
 
     float GFLOPS = 2.0 * N * (nnzR + M) / 1e9 / FPGA_time;
