@@ -467,12 +467,8 @@ void split_comp_packet(
 					k++;
 				}
 			}
-
-
 		}
 	}
-
-
 }
 
 
