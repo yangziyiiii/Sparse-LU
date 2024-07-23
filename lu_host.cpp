@@ -30,17 +30,33 @@ using std::max;
 
 constexpr int NUM_CH = 16;
 constexpr int WINDOW_SIZE = 8192;
-constexpr int WINDOW_SIZE_div_2 = 8192; //??????
+constexpr int WINDOW_SIZE_div_2 = 4096;
 constexpr int WINDOW_LARGE_SIZE = WINDOW_SIZE * NUM_CH;
 
 template <typename T>
 using aligned_vector = std::vector<T, tapa::aligned_allocator<T>>;
 
+template <typename data_t>
+struct edge{
+    int col;
+    int row;
+    data_t attr;
+    
+    edge(int d = -1, int s = -1, data_t v = 0): col(d), row(s), attr(v) {}
+    
+    edge& operator=(const edge& rhs) {
+        col = rhs.col;
+        row = rhs.row;
+        attr = rhs.attr;
+        return *this;
+    }
+};
+
 void generate_dependency_graph_for_pes_cyclic(
     int N,
-    const aligned_alloc<int>& csc_col_ptr,
-    const aligned_alloc<int>& csc_row_idx,
-    const aligned_alloc<int>& csc_val,
+    const aligned_vector<int>& csc_col_ptr,
+    const aligned_vector<int>& csc_row_idx,
+    const aligned_vector<int>& csc_val,
     vector<aligned_vector<ap_uint<64>>>& dep_graph_ch,
     aligned_vector<int>& dep_graph_ptr
 ){
@@ -339,25 +355,6 @@ void merge_data(
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
